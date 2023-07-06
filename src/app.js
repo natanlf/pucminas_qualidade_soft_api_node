@@ -1,13 +1,22 @@
 const express = require('express');
 const Container = require("./container");
+const cors = require('cors');
 
 const app = express();
 app.use(express.json());
+app.use(cors({
+    exposedHeaders: ['x-total-count']
+}));
 app.set('container', new Container());
 
 app.get('/users', async(req, res) => {
     const repository = await app.get('container').getRepository();
-    const users = await repository.findAll();
+    const users = (await repository.findAll()).map(u => {
+        u.id = u._id;
+        delete u._id;
+        return u;
+    });
+    res.set('X-Total-Count', users.lenght);
     res.json(users);
 })
 
