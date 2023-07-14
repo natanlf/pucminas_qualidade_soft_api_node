@@ -9,13 +9,15 @@ app.use(cors({
 }));
 app.set('container', new Container());
 
+const normalizePk = user => {
+    user.id = user._id;
+    delete user._id;
+    return user;
+}
+
 app.get('/users', async(req, res) => {
     const repository = await app.get('container').getRepository();
-    const users = (await repository.findAll()).map(u => {
-        u.id = u._id;
-        delete u._id;
-        return u;
-    });
+    const users = (await repository.findAll()).map(normalizePk);
     res.set('X-Total-Count', users.lenght);
     res.json(users);
 })
@@ -24,7 +26,7 @@ app.post('/users', async(req, res) => {
     const repository = await app.get('container').getRepository();
     try {
         const user = await repository.create(req.body);
-        res.status(201).json(user);
+        res.status(201).json(normalizePk(user));
     } catch(e) {
         res.status(500).json({error: e.message});
     }
@@ -43,7 +45,7 @@ app.get('/users/:id', async(request, response) => {
                 error: 'Usuário não encontrado'
             });
         } else {
-            response.json(user);
+            response.json(normalizePk(user));
         }
         
     } catch (e) {
@@ -65,7 +67,7 @@ app.put('/users/:id', async(request, response) => {
     } else {
         const newUser = {...user, ...request.body};
         await repository.update(newUser);
-        response.json(newUser);
+        response.json(normalizePk(newUser));
     }
 });
 
@@ -82,6 +84,12 @@ app.delete('/users/:id', async(request, response) => {
             error: 'Usuário não encontrado'
         });
     }
-})
+});
+
+app.delete('/users', async(req, res) => {
+    const repository = await app.get('container').getRepository();
+    await repository.deleteAll();
+    res.sendStatus(204);
+});
 
 module.exports = app;
