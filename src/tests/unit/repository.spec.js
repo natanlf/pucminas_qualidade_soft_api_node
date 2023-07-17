@@ -1,4 +1,4 @@
-const UserRepository = require("../repository");
+const UserRepository = require("../../repository");
 
 describe("UserRepository", () => {
 

@@ -1,5 +1,5 @@
-const app = require('./app');
-const Container = require('./container');
+const app = require('../../app');
+const Container = require('../../container');
 const request = require('supertest')(app);
 
 describe('User Management API', () => {
