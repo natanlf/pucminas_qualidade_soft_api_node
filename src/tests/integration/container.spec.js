@@ -14,13 +14,13 @@ describe('Container', () => {
         expect(client).not.toBe(undefined);
     });
 
-    test('Deve criar e retornar sempre a mesma instancia', () => {
+    test('Deve criar e retornar sempre a mesma instância', () => {
         const clientA = container.getClient();
         const clientB = container.getClient();
         expect(clientA).toStrictEqual(clientB);
     });
 
-    test('Deve criar um repositorio de eventos', async () => {
+    test('Deve criar um repositório de usuários', async () => {
         const repository = await container.getRepository();
         expect(repository).not.toBe(null);
         expect(repository).not.toBe(undefined);

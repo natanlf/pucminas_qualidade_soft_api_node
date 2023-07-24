@@ -78,7 +78,7 @@ describe('User Management API', () => {
                 }));
             });
 
-            test('Deve retornar 200 para um usuário existente', async() => {
+            test('Deve retornar 404 para um usuário inexistente', async() => {
         
                 const response = await request.get(`/users/649b7a272150835d525b7335`)
                     .expect('Content-type', /application\/json/);
@@ -178,7 +178,7 @@ describe('User Management API', () => {
             });
 
             test('Deve retornar 404 para um usuário inexistente', async() => {
-                // 1. fazer a chamada de detalhamento do evento
+                // 1. fazer a chamada de detalhamento do usuário
                 const response = await request.delete('/users/649b7a272150835d525b7335')
                     // 2. verificar o header
                     .expect('Content-type', /application\/json/);

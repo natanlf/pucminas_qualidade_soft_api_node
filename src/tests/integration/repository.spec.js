@@ -18,7 +18,7 @@ describe("UserRepository", () => {
         await repository.deleteAll();
     });
 
-    test('Repositório deve criar um novo usuário', async() => {
+    test('Repositório deve criar um novo usuário (C)', async() => {
         const user = {
             name: "Angela",
             email: "angela@gmail.com",
@@ -32,7 +32,7 @@ describe("UserRepository", () => {
         expect(users.length).toBe(1);
     });
 
-    test('Repositório deve listar todos os usuários', async() => {
+    test('Repositório deve listar todos os usuários (R)', async() => {
         const user = {
             name: "Angela",
             email: "angela@gmail.com",
@@ -48,7 +48,7 @@ describe("UserRepository", () => {
         );
     });
 
-    test('Repositório deve atualizar um usuário', async() => {
+    test('Repositório deve atualizar um usuário (U)', async() => {
         const user = {
             name: "Angela",
             email: "angela@gmail.com",
@@ -63,7 +63,7 @@ describe("UserRepository", () => {
         expect(result).toStrictEqual(expect.objectContaining(user));
     });
 
-    test('Repositório deve pegar um usuário por id', async() => {
+    test('Repositório deve pegar um usuário por id (R)', async() => {
         const user = {
             name: "Angela",
             email: "angela@gmail.com",
@@ -75,7 +75,7 @@ describe("UserRepository", () => {
         expect(result).toStrictEqual(expect.objectContaining(user));
     });
 
-    test('Repositório deve remover um usuário', async() => {
+    test('Repositório deve remover um usuário (D)', async() => {
         const user = {
             name: "Angela",
             email: "angela@gmail.com",
@@ -90,7 +90,7 @@ describe("UserRepository", () => {
         expect(users.length).toBe(0);
     });
 
-    test('Repositorio não deve permitir remoção de usuário sem id', async () => {
+    test('Repositório não deve permitir remoção de usuário sem id', async () => {
 
         const user = {
             name: "Angela",
